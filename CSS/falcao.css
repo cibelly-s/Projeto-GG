@@ -75,9 +75,11 @@ header {
     text-align: center;
 }
 
-header h1 {
+header h1 a {
+    /* aqui estou mexendo no titulo que está dentro do header */
     color: #bd0000;
-    font-size: 2em;
+    padding: 3%;
+    text-decoration: none;
 }
 
 nav {

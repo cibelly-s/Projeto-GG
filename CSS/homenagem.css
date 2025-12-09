@@ -41,11 +41,11 @@ header {
     margin-right: 2%;
 }
 
-header h1 {
+header h1 a {
     /* aqui estou mexendo no titulo que está dentro do header */
-    color: #ffffff;
+    color: #bd0000;
     padding: 3%;
-    padding-right: 3%;
+    text-decoration: none;
 }
 
 nav a {

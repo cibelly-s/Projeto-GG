@@ -155,10 +155,47 @@ select, button{
   font-size:14px;
 }
 
-/* RODAPÉ */
-footer{
-  margin-top:14px;
-  text-align:center;
-  font-size:13px;
-  color:var(--muted);
+/* ---------- FOOTER ---------- */
+
+footer {
+    background-color: #410000;
+    color: #f2f2f2;
+    padding: 30px 20px 10px 20px;
+    text-align: center;
+}
+
+.footer-table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.footer-table td {
+    vertical-align: top;
+    padding: 15px;
+    word-wrap: break-word;
+}
+
+.footer-table h3 {
+    color: #ff6b6b;
+    margin-bottom: 10px;
+}
+
+.footer-table a {
+    color: #f2f2f2;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-table a:hover {
+    color: #ff6b6b;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ff6b6b;
+    font-weight: bold;
 }
