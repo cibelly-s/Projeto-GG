@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fundo Cintilante — Brilhos</title>
+<style>
+  /* Reset simples */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;}
+
+  /* Canvas cobrindo tudo */
+  #bgCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-1; /* atrás do conteúdo */
+    display:block;
+  }
+
+  /* Uma camada sutil de gradiente sobre o canvas para deixar elegante */
+  .overlay{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(255,200,120,0.04), transparent 10%),
+      radial-gradient(900px 500px at 90% 80%, rgba(100,150,255,0.03), transparent 10%),
+      linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.18));
+    z-index:0;
+  }
+
+  /* Conteúdo de exemplo, centralizado */
+  .content{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    position:relative;
+    z-index:1;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    color: #fff;
+    text-align:center;
+  }
+
+  .card{
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+    padding:24px 26px;
+    border-radius:14px;
+    border: 1px solid rgba(255,255,255,0.06);
+    max-width:880px;
+    width:100%;
+  }
+
+  h1{ font-size:24px; margin-bottom:8px; letter-spacing:0.2px }
+  p{ color:rgba(255,255,255,0.85); margin-bottom:14px; line-height:1.5 }
+
+  /* Responsividade */
+  @media(max-width:520px){
+    h1{ font-size:20px }
+    .card{ padding:18px }
+  }
+
+  /* botão discreto para pausar (opcional) */
+  .controls{
+    position:fixed;
+    right:16px;
+    bottom:16px;
+    z-index:2;
+    display:flex;
+    gap:8px;
+  }
+  .toggle{
+    background:rgba(0,0,0,0.45);
+    color:#fff;
+    border:1px solid rgba(255,255,255,0.06);
+    padding:8px 10px;
+    border-radius:10px;
+    font-size:13px;
+    cursor:pointer;
+    backdrop-filter: blur(4px);
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+<div class="overlay" aria-hidden="true"></div>
+
+<main class="content" role="main">
+  <div class="card">
+    <h1>Fundo Cintilante ✨</h1>
+    <p>Este é um fundo com brilhos suaves que acendem e apagam, responsivo e otimizado para desktop e mobile. Pode usar como background do seu site, tela inicial ou seção especial.</p>
+    <p style="font-size:13px; color:rgba(255,255,255,0.75)">Dica: feche a aba com som de notificação desligado — não há áudio aqui 😄</p>
+  </div>
+</main>
+
+<!-- controles opcionais -->
+<div class="controls" aria-hidden="true">
+  <button id="btnToggle" class="toggle">Pausar</button>
+  <button id="btnMore" class="toggle">+ Brilhos</button>
+  <button id="btnLess" class="toggle">- Brilhos</button>
+</div>
+
+<script>
+/*
+  Fundo Cintilante com Canvas
+  - Partículas com posições aleatórias
+  - Cada partícula tem lifetime e faz fade in/out (senoidal) -> efeito de "pisca"
+  - Ajustes: NUM_PARTICLES, SPEED, SIZE_RANGE, COLOR
+  - Responsivo: usa devicePixelRatio para nitidez
+*/
+
+(() => {
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Configurações (ajuste aqui se quiser)
+  let NUM_PARTICLES = 160;       // número inicial de brilhos
+  const SPEED = 0.0025;          // velocidade geral de ciclo (maior = mais rápido)
+  const SIZE_MIN = 0.6;          // menor raio (px)
+  const SIZE_MAX = 2.6;          // maior raio (px)
+  const COLOR = { r: 255, g: 240, b: 220 }; // cor base (pode alterar)
+  const GLOW_STRENGTH = 0.9;     // intensidade do glow (0..1)
+  const FPS_LIMIT = 60;          // limite de frames
+
+  let DPR = Math.max(1, window.devicePixelRatio || 1);
+
+  // Estado
+  let particles = [];
+  let lastTime = 0;
+  let running = true;
+
+  function resizeCanvas(){
+    DPR = Math.max(1, window.devicePixelRatio || 1);
+    canvas.width = Math.floor(window.innerWidth * DPR);
+    canvas.height = Math.floor(window.innerHeight * DPR);
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  // cria partículas
+  function initParticles(){
+    particles = [];
+    const W = canvas.width / DPR, H = canvas.height / DPR;
+    for(let i=0;i<NUM_PARTICLES;i++){
+      particles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        size: SIZE_MIN + Math.random() * (SIZE_MAX - SIZE_MIN),
+        phase: Math.random() * Math.PI * 2, // fase inicial
+        speed: (0.6 + Math.random()*1.6) * (0.6 + Math.random()) * SPEED * (0.9 + Math.random()*0.6),
+        life: 1 + Math.random()*3, // ciclo duração (segundos)
+        flicker: Math.random()*0.9 + 0.1, // variação na intensidade
+        hueShift: (Math.random()*20)-10 // pequena variação de cor
+      });
+    }
+  }
+
+  // Desenhar background: limpa e desenha partículas com brilho (bloom)
+  function draw(now){
+    if(!running) return;
+    // FPS throttle (simples)
+    if(now - lastTime < (1000 / FPS_LIMIT)) {
+      requestAnimationFrame(draw);
+      return;
+    }
+    lastTime = now;
+
+    const W = canvas.width / DPR, H = canvas.height / DPR;
+    ctx.clearRect(0,0,W,H);
+
+    // Opcional: um leve gradiente no fundo para profundidade
+    const g = ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'rgba(10,12,20,1)');
+    g.addColorStop(1,'rgba(4,6,10,0.92)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,W,H);
+
+    // desenha brilhos
+    for(let p of particles){
+      // avança fase com base no tempo
+      p.phase += p.speed * (now ? 0.06 : 0.06) * (1 + Math.sin(p.x * 0.001 + p.y * 0.001)*0.12);
+
+      // alpha baseado em seno da fase -> surge e some suavemente
+      const alpha = Math.max(0, Math.min(1, (Math.sin(p.phase / (p.life*60) * Math.PI*2) * 0.5 + 0.5) * p.flicker));
+
+      // glow effect: desenhar gradiente radial
+      const sx = p.x, sy = p.y;
+      const r = p.size * (1 + 1.6*alpha);
+
+      const grad = ctx.createRadialGradient(sx, sy, 0, sx, sy, r*6);
+      const cr = Math.round(COLOR.r + p.hueShift);
+      const cg = Math.round(COLOR.g + p.hueShift*0.4);
+      const cb = Math.round(COLOR.b - p.hueShift*0.6);
+
+      grad.addColorStop(0, `rgba(${cr},${cg},${cb},${(0.9*alpha*GLOW_STRENGTH).toFixed(3)})`);
+      grad.addColorStop(0.2, `rgba(${cr},${cg},${cb},${(0.5*alpha*GLOW_STRENGTH).toFixed(3)})`);
+      grad.addColorStop(0.6, `rgba(${cr},${cg},${cb},${(0.15*alpha*GLOW_STRENGTH).toFixed(3)})`);
+      grad.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+
+      ctx.beginPath();
+      ctx.fillStyle = grad;
+      ctx.arc(sx, sy, r*6, 0, Math.PI*2);
+      ctx.fill();
+
+      // draw small core for sharper sparkle
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${cr},${cg},${cb},${(alpha*0.95).toFixed(3)})`;
+      ctx.arc(sx, sy, r*0.7, 0, Math.PI*2);
+      ctx.fill();
+
+      // small twinkle lines occasionally
+      if(alpha > 0.75 && Math.random() < 0.02){
+        ctx.save();
+        ctx.translate(sx, sy);
+        ctx.rotate(Math.random()*Math.PI);
+        ctx.globalAlpha = alpha * 0.9;
+        ctx.fillStyle = `rgba(${cr},${cg},${cb},${(alpha*0.8).toFixed(3)})`;
+        ctx.fillRect(-r*0.06, -r*2.2, r*0.12, r*1.8);
+        ctx.fillRect(-r*2.2, -r*0.06, r*1.8, r*0.12);
+        ctx.restore();
+      }
+
+      // tiny slow drift for life (gives organic motion)
+      p.x += Math.sin(p.phase * 0.2) * 0.02;
+      p.y += Math.cos(p.phase * 0.2) * 0.02;
+
+      // wrap edges
+      if(p.x < -10) p.x = W + 10;
+      if(p.x > W + 10) p.x = -10;
+      if(p.y < -10) p.y = H + 10;
+      if(p.y > H + 10) p.y = -10;
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  // Public helpers to tweak behavior
+  function addParticles(n){
+    NUM_PARTICLES = Math.max(0, NUM_PARTICLES + n);
+    initParticles();
+  }
+  function setPause(state){
+    running = !state;
+    if(running) requestAnimationFrame(draw);
+  }
+
+  // Init
+  function start(){
+    resizeCanvas();
+    initParticles();
+    requestAnimationFrame(draw);
+  }
+
+  // Resize listener
+  window.addEventListener('resize', () => {
+    // pequena debounce
+    clearTimeout(window._bgResizeTimer);
+    window._bgResizeTimer = setTimeout(() => {
+      resizeCanvas();
+      initParticles();
+    }, 120);
+  });
+
+  // Start agora
+  start();
+
+  // Controls UI (opcional)
+  const btnToggle = document.getElementById('btnToggle');
+  const btnMore = document.getElementById('btnMore');
+  const btnLess = document.getElementById('btnLess');
+  btnToggle && btnToggle.addEventListener('click', () => {
+    setPause(!running);
+    btnToggle.textContent = running ? 'Pausar' : 'Retomar';
+  });
+  btnMore && btnMore.addEventListener('click', () => addParticles(30));
+  btnLess && btnLess.addEventListener('click', () => addParticles(-30));
+
+  // Reduce motion prefer: pause animation if user prefers reduced motion
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(mq.matches){
+    setPause(true);
+    if(btnToggle) btnToggle.textContent = 'Retomar';
+  }
+  mq.addEventListener && mq.addEventListener('change', e => {
+    if(e.matches) setPause(true); else setPause(false);
+  });
+
+})();
+</script>
+</body>
+</html>

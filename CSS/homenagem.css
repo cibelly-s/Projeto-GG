@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: "Libre Baskerville", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    /* aqui estou mexendo no corpo do site */
+    background-color: rgb(0, 0, 0);
+    color: rebeccapurple;
+}
+
+.music {
+    width: 300px;
+    /* tamanho do player */
+    padding: 10px;
+    /* espaço interno */
+    background-color: black;
+    /* fundo preto */
+    border-radius: 8px;
+    /* cantos arredondados */
+    margin-left: 39%;
+}
+
+header {
+    /* aqui estou mexendo no menu principal do site */
+    display: flex;
+    background-color: rgb(187, 0, 0);
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    width: 96%;
+    height: 100px;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+header h1 {
+    /* aqui estou mexendo no titulo que está dentro do header */
+    color: #ffffff;
+    padding: 3%;
+    padding-right: 3%;
+}
+
+nav a {
+    /* aqui no a href que se encontra dentro do nav localizado no header */
+    color: aliceblue;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-right: 70px;
+}
+
+/*Algo aconteceu, nn sei oq é */
+.subtitulo-galeria h2 {
+    margin-top: 2%;
+    text-align: center;
+    font-size: 2em;
+}
+
+.sessao-galeria {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-left: 10%;
+}
+
+
+
+
+.galeria {
+    position: relative;
+    /* necessário para a frase ficar por cima */
+    grid-template-columns: repeat(4, 1fr);
+    width: 270px;
+    height: 270px;
+    gap: 15px;
+    display: inline-block;
+    /* impede de quebrar e jogar a frase pro lado */
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.galeria img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .3s ease;
+}
+
+/* Texto que aparece por cima da foto */
+.galeria .frase {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+
+    opacity: 0;
+    /* começa invisível */
+    transition: .3s ease;
+    pointer-events: none;
+    /* não trava o hover */
+}
+
+/* Quando o mouse passa */
+.galeria:hover img {
+    transform: translateY(-10px);
+    filter: brightness(40%);
+    /* escurece pra frase aparecer */
+}
+
+.galeria:hover .frase {
+    opacity: 1;
+    /* frase aparece */
+}
+
+.subtitulo-video {
+    margin-top: 2%;
+    text-align: center;
+    font-size: 4em;
+    padding: 2%;
+}
+
+video {
+    margin-top: 2%;
+}
+
+footer {
+    background-color: #1a1a1a;
+    color: #f2f2f2;
+    font-family: 'Arial', sans-serif;
+    padding: 30px 20px 10px 20px;
+    text-align: center;
+}
+
+.footer-table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.footer-table td {
+    vertical-align: top;
+    padding: 15px;
+}
+
+.footer-table h3 {
+    color: #ff6b6b;
+    margin-bottom: 10px;
+}
+
+.footer-table a {
+    color: #f2f2f2;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-table a:hover {
+    color: #ff6b6b;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ff6b6b;
+    font-weight: bold;
+}

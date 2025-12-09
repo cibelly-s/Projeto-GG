@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Frases Aleatórias Inteligentes — Bel</title>
+    <link rel="stylesheet" href="../CSS/escondido.css">
+</head>
+
+<body>
+
+    <div class="wrap">
+        <header>
+            <h1>Frases Aleatórias</h1>
+            <div class="controls">
+                <select id="cat">
+                    <option value="mensagem">Mensagem do dia</option>
+                    <option value="conselho">Conselho nada útil</option>
+                    <option value="algo">Algo que eu não perguntei</option>
+                </select>
+                <button id="btnGen" class="btn-primary">Gerar</button>
+            </div>
+        </header>
+
+        <div class="main">
+            <section>
+                <div class="card">
+                    <div class="display" id="display">
+                        <div id="text">Clique em <strong>Gerar</strong> para receber uma frase.</div>
+                        <div class="floating-emojis" id="emojiLayer"></div>
+                    </div>
+
+                    <div class="actions">
+                        <button id="btnNext" class="small">Próxima</button>
+                        <button id="btnCopy" class="small">Copiar</button>
+                        <button id="btnFav" class="small">❤ Favoritar</button>
+                        <button id="btnShowFav" class="small">Ver Favoritas</button>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:12px">
+                    <strong>Histórico (sessão)</strong>
+                    <div id="history" style="margin-top:10px; color:var(--muted)">Nenhuma geração ainda.</div>
+                </div>
+            </section>
+
+            <aside class="card">
+                <strong>Favoritas</strong>
+                <div id="favList" style="margin-top:10px; color:var(--muted)">
+                    Nenhuma favorita ainda.
+                </div>
+
+                <button id="btnClearFav" class="small" style="margin-top:14px">Limpar favoritas</button>
+            </aside>
+        </div>
+
+        <footer>Feito com carinho 💛</footer>
+    </div>
+
+    <script src="../JS/escondido.js"></script>
+
+</body>
+
+</html>
