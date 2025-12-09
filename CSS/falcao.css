@@ -215,11 +215,3 @@ footer {
     font-weight: bold;
 }
 
-/* footer responsivo */
-@media (max-width: 600px) {
-    .footer-table td {
-        display: block;
-        width: 100%;
-        text-align: left;
-    }
-}

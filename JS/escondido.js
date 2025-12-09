@@ -1,3 +1,5 @@
+/*Creditos dessa pagina nn é meu, dei a idéia e o chat desenrolou, mas, eu escrevi as mensagens*/
+
 (() => {
   const MESSAGES = {
     mensagem: [
