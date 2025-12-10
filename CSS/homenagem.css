@@ -43,7 +43,7 @@ header {
 
 header h1 a {
     /* aqui estou mexendo no titulo que está dentro do header */
-    color: #bd0000;
+    color: #ffffffff;
     padding: 3%;
     text-decoration: none;
 }

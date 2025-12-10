@@ -1,5 +1,5 @@
 // Defina aqui o nome e a senha corretos
-const nomeCorreto = "Cor Vermelho";
+const nomeCorreto = "Vermelho";
 const senhaCorreta = "Belly";
 
 document.querySelector("#lock-screen button").addEventListener("click", function () {
