@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autumn Nature</title>
+    <link rel="stylesheet" href="../css/outono.css">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="sky"></div>
+
+    <!-- Névoa -->
+
+    <div class="fog fog1"></div>
+    <div class="fog fog2"></div>
+
+    <!-- Nuvens -->
+
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+
+    <!-- Partículas -->
+
+    <canvas id="particles"></canvas>
+
+    <!-- Estrelas -->
+
+    <div id="stars"></div>
+
+    <!-- Lua -->
+
+    <div class="moon"></div>
+
+    <!-- Folhas -->
+
+    <div id="leaves-container"></div>
+
+    <!-- Header -->
+
+    <header>
+
+        <div class="logo">
+
+            🍂 Outono
+
+        </div>
+
+        <nav>
+
+            <a href="#home">Início</a>
+
+            <a href="#explore">Explorar</a>
+
+            <a href="#gallery">Galeria</a>
+
+            <a href="#story">Jornada</a>
+
+        </nav>
+
+        <button class="menu-btn">
+
+            ☰
+
+        </button>
+
+    </header>
+
+    <!-- Hero -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+
+                Sinta.<br>
+
+                Viva a
+
+                <span>natureza.</span>
+
+            </h1>
+
+            <p>
+
+                Permita-se ouvir, observar e sentir
+                a beleza que existe ao nosso redor.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn">
+
+                    Outono
+
+                </button>
+
+                <button class="secondary-btn">
+
+                    Sem Som
+
+                </button>
+
+            </div>
+
+            <div class="audio-card">
+
+                <h3>
+
+                    AQUI SÓ PELO DESIGN✨
+
+                </h3>
+
+                <p>
+
+                    DESIGN LINDO
+
+                </p>
+
+                <div class="audio-controls">
+
+                    <button id="playBtn">
+
+                        ▶
+
+                    </button>
+
+                    <div class="audio-bar">
+
+                        <div class="audio-progress"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Explorar -->
+
+    <section class="section explore" id="explore">
+
+        <h2>
+
+            Explore a Natureza
+
+        </h2>
+
+        <p>
+
+            Se permita caminhar por paisagens incríveis,
+            ouvindo os sons dos lugares
+            e conectando-se com os ambientes.
+            <br>
+            (O AMBIENTE É O FUNDO, INCRIVEL NÉ☺️ IDEIA MINHA)
+
+        </p>
+
+    </section>
+
+    <!-- Galeria -->
+
+    <section class="section gallery" id="gallery">
+
+        <h2>
+
+            Galeria
+
+        </h2>
+
+        <div class="gallery-grid">
+
+            <div class="gallery-card">
+                <img src="../imagens/WhatsApp Image 2025-12-05 at 11.34.34 (1).jpeg" alt="" class="gallery-card">
+            </div>
+
+            <div class="gallery-card">
+                <img src="../imagens/WhatsApp Image 2025-12-05 at 11.34.45.jpeg" alt="" class="gallery-card">
+            </div>
+
+            <div class="gallery-card">
+                <img src="../imagens/aaaaaaaaaaaaa.jpeg" alt="" class="gallery-card">
+            </div>
+
+            <div class="gallery-card">
+                <img src="../imagens/WhatsApp Image 2025-12-05 at 17.51.59 (3).jpeg" alt="" class="gallery-card">
+            </div>
+
+            <div class="gallery-card">
+                <img src="../imagens/WhatsApp Image 2025-12-05 at 11.34.33.jpeg" alt="" class="gallery-card">
+            </div>
+
+            <div class="gallery-card">
+                <img src="../imagens/WhatsApp Image 2025-12-05 at 11.34.46.jpeg" alt="" class="gallery-card">
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Story -->
+
+    <section class="section story" id="story">
+
+        <h2>
+
+            Jornada da Natureza
+
+        </h2>
+
+        <p>
+
+            Do amanhecer ao anoitecer,
+            cada momento possui sua
+            própria beleza.
+            <br>
+            (momento motivacional.😊)
+
+        </p>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+
+            © 2026 Autumn Nature
+
+        </p>
+
+    </footer>
+
+    <!-- Áudio Ambiente -->
+
+    <audio id="natureAudio" loop>
+
+        <source src="assets/audio/nature.mp3" type="audio/mp3">
+
+    </audio>
+
+    <!-- Áudio Noturno -->
+
+    <audio id="nightAudio" loop>
+
+        <source src="assets/audio/night.mp3" type="audio/mp3">
+
+    </audio>
+
+    <!-- JS -->
+
+    <script src="../js/outono.js"></script>
+
+</body>
+
+</html>
