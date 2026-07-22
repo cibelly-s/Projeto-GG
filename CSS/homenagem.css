@@ -15,30 +15,28 @@ body {
     color: rebeccapurple;
 }
 
-.music {
+    .music {
     width: 300px;
-    /* tamanho do player */
+    max-width: 90%;
     padding: 10px;
-    /* espaço interno */
     background-color: black;
-    /* fundo preto */
     border-radius: 8px;
-    /* cantos arredondados */
-    margin-left: 39%;
+    margin: 20px auto;
+    display: block;
 }
 
 header {
     /* aqui estou mexendo no menu principal do site */
     display: flex;
-    background-color: rgb(187, 0, 0);
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(187, 0, 0);
+    width: 95%;
+    min-height: 100px;
+    margin: 20px auto;
+    padding: 20px;
     border-radius: 16px;
-    width: 96%;
-    height: 100px;
-    margin-top: 2%;
-    margin-left: 2%;
-    margin-right: 2%;
 }
 
 header h1 a {
@@ -48,12 +46,18 @@ header h1 a {
     text-decoration: none;
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
 nav a {
     /* aqui no a href que se encontra dentro do nav localizado no header */
     color: aliceblue;
     text-decoration: none;
     font-size: 1.2em;
-    margin-right: 70px;
 }
 
 /*Algo aconteceu, nn sei oq é */
@@ -63,27 +67,26 @@ nav a {
     font-size: 2em;
 }
 
-.sessao-galeria {
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-left: 10%;
+.sessao-galeria{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:20px;
+    max-width:1400px;
+    margin:40px auto;
+    padding:20px;
 }
 
 
 
-
-.galeria {
-    position: relative;
-    /* necessário para a frase ficar por cima */
-    grid-template-columns: repeat(4, 1fr);
-    width: 270px;
-    height: 270px;
-    gap: 15px;
+.galeria{
+    position:relative;
+    width:270px;
+    height:270px;
+    overflow:hidden;
+    border-radius:12px;
+    cursor:pointer;
     display: inline-block;
-    /* impede de quebrar e jogar a frase pro lado */
-    overflow: hidden;
-    cursor: pointer;
 }
 
 .galeria img {
@@ -91,6 +94,7 @@ nav a {
     height: 100%;
     object-fit: cover;
     transition: .3s ease;
+    display: block;
 }
 
 /* Texto que aparece por cima da foto */
@@ -156,9 +160,10 @@ footer {
     padding: 15px;
 }
 
-.footer-table h3 {
-    color: #ff6b6b;
-    margin-bottom: 10px;
+.footer-table td {
+    vertical-align: top;
+    padding: 15px;
+    word-wrap: break-word;
 }
 
 .footer-table a {
@@ -176,4 +181,84 @@ footer {
     font-size: 14px;
     color: #ff6b6b;
     font-weight: bold;
+}
+
+/*==========================
+RESPONSIVIDADE
+==========================*/
+
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav {
+        margin-top: 20px;
+        gap: 15px;
+    }
+
+    .music {
+        width: 90%;
+    }
+
+    .galeria {
+        width: 220px;
+        height: 220px;
+    }
+
+    .subtitulo-video {
+        font-size: 2.5em;
+    }
+
+    .footer-table,
+    .footer-table tbody,
+    .footer-table tr,
+    .footer-table td {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-table td {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 1rem;
+    }
+
+    .subtitulo-galeria h2 {
+        font-size: 1.5em;
+    }
+
+    .subtitulo-video {
+        font-size: 2em;
+    }
+
+    .music {
+        width: 95%;
+    }
+
+    .galeria {
+        width: 95%;
+        height: auto;
+    }
+
+    .galeria img {
+        height: auto;
+    }
 }
