@@ -97,17 +97,22 @@ const area = document.querySelector(".gameArea");
 
 let segurando = false;
 
-baleia.addEventListener("mousedown", () => segurando = true);
-document.addEventListener("mouseup", () => segurando = false);
+baleia.addEventListener("pointerdown", () => {
+    segurando = true;
+});
 
-area.addEventListener("mousemove", (e) => {
+document.addEventListener("pointerup", () => {
+    segurando = false;
+});
+
+area.addEventListener("pointermove", (e) => {
 
     if (!segurando) return;
 
     const rect = area.getBoundingClientRect();
 
-    let x = e.clientX - rect.left - 35;
-    let y = e.clientY - rect.top - 35;
+    let x = e.clientX - rect.left - baleia.offsetWidth / 2;
+    let y = e.clientY - rect.top - baleia.offsetHeight / 2;
 
     baleia.style.left = x + "px";
     baleia.style.top = y + "px";
