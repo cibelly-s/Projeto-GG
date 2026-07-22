@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oceano de Acolhimento</title>
+    <link rel="stylesheet" href="../css/acolhimento.css">
+</head>
+
+<body>
+
+    <!-- 🌊 fundo -->
+    <div class="oceano"></div>
+
+    <!-- 🫧 partículas são criadas via JS -->
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>respira um pouquinho 🌊</h1>
+
+            <p class="texto">
+                o oceano nunca pede pressa.
+                então talvez você também não precise correr agora.
+            </p>
+
+            <!-- 🐋 botão chuva de baleias -->
+            <button id="botaoBaleias">
+                soltar baleinhas 🐋
+            </button>
+
+            <!-- 🧘 respiração -->
+            <div class="breathing">
+                <div class="orb"></div>
+                <p class="breathing-text">inspira</p>
+            </div>
+
+            <!-- 🎵 música -->
+            <div class="music-player">
+                <iframe style="border-radius:12px" src="" width="100%" height="152"
+                    frameborder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+                </iframe>
+            </div>
+
+            <!-- 🐋 mini game drag -->
+            <section class="game">
+
+                <h2>leve a baleinha até a luz 🌌</h2>
+
+                <div class="gameArea">
+
+                    <div id="baleia">🐋</div>
+
+                    <div id="destino"></div>
+
+                </div>
+
+                <p id="mensagemGame"></p>
+
+            </section>
+
+        </div>
+    </div>
+
+    <script src="../js/acolhimento.js"></script>
+</body>
+
+</html>
